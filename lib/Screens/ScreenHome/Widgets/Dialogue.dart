@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo/Models/TaskModel.dart';
 import 'package:todo/Models/TaskProvider.dart';
 
 class CustomDialogue extends StatelessWidget {
@@ -36,13 +37,23 @@ class CustomDialogue extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Provider.of<TaskProvider>(context, listen: false)
-                    .add(taskController.text.trim());
-                Navigator.of(ctx).pop();
-                taskController.clear();
-
-                Provider.of<TaskProvider>(context, listen: false)
-                    .removeEmptyTasks();
+                if (taskController.text.trim().isEmpty) {
+                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+                    // behavior: SnackBarBehavior.floating,
+                    duration: Duration(milliseconds: 1500),
+                    backgroundColor: Color.fromARGB(255, 255, 100, 137),
+                    content: Text("Empty Task discarded"),
+                  ));
+                  Navigator.of(ctx).pop();
+                } else {
+                  Provider.of<TaskProvider>(context, listen: false)
+                      .add(TaskModel(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    task: taskController.text.trim(),
+                  ));
+                  Navigator.of(ctx).pop();
+                  taskController.clear();
+                }
               },
               child: const Text("Add"),
             ),

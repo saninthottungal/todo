@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:todo/Models/TaskModel.dart';
 
 class TaskProvider extends ChangeNotifier {
-  List<String> tasks = [];
+  List<TaskModel> tasks = [];
 
-  void add(String task) {
+  void add(TaskModel task) {
     tasks.add(task);
     notifyListeners();
   }
 
-  void remove(String task) {
-    tasks.removeWhere((value) => value == task);
-    notifyListeners();
-  }
-
-  void removeEmptyTasks() {
-    tasks.removeWhere((element) => element.isEmpty);
+  void remove(int index) {
+    tasks.removeAt(index);
     notifyListeners();
   }
 }

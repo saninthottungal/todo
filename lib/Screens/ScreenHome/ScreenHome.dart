@@ -21,14 +21,14 @@ class ScreenHome extends StatelessWidget {
             ),
           )
         ],
-        centerTitle: true,
+        //centerTitle: true,
         title: const Padding(
           padding: EdgeInsets.only(bottom: 20),
           child: Text(
             "The To-Do",
             style: TextStyle(
-              fontSize: 35,
-              letterSpacing: 2,
+              fontSize: 30,
+              // letterSpacing: 2,
               fontWeight: FontWeight.bold,
               color: Colors.white,
             ),

@@ -7,7 +7,7 @@ class EmptyDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Text(
-      "Try adding a Task !",
+      "Hi there.\nTry adding a Task !",
       style: TextStyle(
           color: Colors.black54, fontWeight: FontWeight.bold, fontSize: 15),
     ));

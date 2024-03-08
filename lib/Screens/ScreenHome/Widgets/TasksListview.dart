@@ -18,7 +18,7 @@ class TasksListview extends StatelessWidget {
                 onChanged: (value) {},
               ),
               title: Text(
-                taskClass.tasks[index],
+                taskClass.tasks[index].task,
                 style: const TextStyle(
                     fontSize: 20,
                     // fontFamily: "Angeline",
@@ -27,7 +27,7 @@ class TasksListview extends StatelessWidget {
               trailing: IconButton(
                 onPressed: () {
                   Provider.of<TaskProvider>(context, listen: false)
-                      .remove(taskClass.tasks[index]);
+                      .remove(index);
                 },
                 icon: const Icon(
                   Icons.delete_outline,
