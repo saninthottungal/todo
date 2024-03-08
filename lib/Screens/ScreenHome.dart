@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/Models/TaskProvider.dart';
 
 class ScreenHome extends StatelessWidget {
   ScreenHome({super.key});
@@ -39,34 +41,53 @@ class ScreenHome extends StatelessWidget {
           top: 5,
           right: 20,
         ),
-        child: ListView.separated(
-          itemBuilder: (context, index) {
-            return Card(
-              color: const Color.fromARGB(255, 249, 241, 240),
-              child: ListTile(
-                leading: Checkbox(
-                  value: false,
-                  onChanged: (value) {},
-                ),
-                title: const Text(
-                  "sample text",
-                  style: TextStyle(
-                      fontSize: 20,
-                      // fontFamily: "Angeline",
-                      color: Color.fromARGB(179, 0, 0, 0)),
-                ),
-                trailing: const Icon(
-                  Icons.delete_outline,
-                  color: Color.fromARGB(255, 255, 100, 137),
-                ),
-              ),
-            );
-          },
-          separatorBuilder: (context, index) => const SizedBox(
-            height: 10,
-          ),
-          itemCount: 20,
-        ),
+        child: Provider.of<TaskProvider>(context).tasks.isEmpty
+            ? const Center(
+                child: Text(
+                "Try adding a Task !",
+                style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ))
+            : Consumer<TaskProvider>(builder: (context, taskClass, _) {
+                return ListView.separated(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      color: const Color.fromARGB(255, 249, 241, 240),
+                      child: ListTile(
+                        leading: Checkbox(
+                          value: true,
+                          onChanged: (value) {},
+                        ),
+                        title: Text(
+                          taskClass.tasks[index],
+                          style: const TextStyle(
+                              fontSize: 20,
+                              // fontFamily: "Angeline",
+                              color: Color.fromARGB(179, 0, 0, 0)),
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            Provider.of<TaskProvider>(context, listen: false)
+                                .remove(taskClass.tasks[index]);
+                          },
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: Color.fromARGB(255, 255, 100, 137),
+                          ),
+                          // Icons.delete_outline,
+                          // color: Color.fromARGB(255, 255, 100, 137),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 10,
+                  ),
+                  itemCount: taskClass.tasks.length,
+                );
+              }),
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: const Color.fromARGB(255, 255, 100, 137),
@@ -108,7 +129,15 @@ class ScreenHome extends StatelessWidget {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<TaskProvider>(context, listen: false)
+                                .add(taskController.text.trim());
+                            Navigator.of(ctx).pop();
+                            taskController.clear();
+
+                            Provider.of<TaskProvider>(context, listen: false)
+                                .removeEmptyTasks();
+                          },
                           child: const Text("Add"),
                         ),
                       ],
