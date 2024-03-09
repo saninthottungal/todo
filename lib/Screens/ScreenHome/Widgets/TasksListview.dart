@@ -14,12 +14,18 @@ class TasksListview extends StatelessWidget {
             color: const Color.fromARGB(255, 249, 241, 240),
             child: ListTile(
               leading: Checkbox(
-                value: true,
-                onChanged: (value) {},
+                value: taskClass.tasks[index].isChecked,
+                onChanged: (value) {
+                  Provider.of<TaskProvider>(context, listen: false)
+                      .checkChange(index, value);
+                },
               ),
               title: Text(
                 taskClass.tasks[index].task,
-                style: const TextStyle(
+                style: TextStyle(
+                    decoration: taskClass.tasks[index].isChecked
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                     fontSize: 20,
                     // fontFamily: "Angeline",
                     color: Color.fromARGB(179, 0, 0, 0)),

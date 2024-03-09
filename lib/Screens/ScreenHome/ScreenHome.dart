@@ -44,7 +44,7 @@ class ScreenHome extends StatelessWidget {
         ),
         child: Provider.of<TaskProvider>(context).tasks.isEmpty
             ? const EmptyDialogue()
-            : const TasksListview(),
+            : TasksListview(),
       ),
       floatingActionButton: const NewTaskFAB(),
     );

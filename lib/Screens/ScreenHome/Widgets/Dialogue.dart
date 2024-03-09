@@ -16,7 +16,7 @@ class CustomDialogue extends StatelessWidget {
         const SizedBox(height: 25),
         TextField(
           controller: taskController,
-          maxLength: 25,
+          maxLength: 35,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
             // hintMaxLines: 10,
@@ -38,7 +38,7 @@ class CustomDialogue extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (taskController.text.trim().isEmpty) {
-                  ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
                     // behavior: SnackBarBehavior.floating,
                     duration: Duration(milliseconds: 1500),
                     backgroundColor: Color.fromARGB(255, 255, 100, 137),
