@@ -5,7 +5,7 @@ class EmptyDialogue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
         child: Text(
       "Hi there.\nTry adding a Task !",
       style: TextStyle(

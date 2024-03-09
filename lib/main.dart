@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/Models/TaskProvider.dart';
+import 'package:todo/Database/DatabaseModel/TaskModel.dart';
+import 'package:todo/Provider/TaskProvider.dart';
 import 'package:todo/Screens/ScreenHome/ScreenHome.dart';
 
-void main(List<String> args) {
+Future<void> main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(TaskModelAdapter().typeId)) {
+    Hive.registerAdapter(TaskModelAdapter());
+  }
+
   runApp(const MyApp());
 }
 
@@ -28,7 +36,7 @@ class MyApp extends StatelessWidget {
             color: Colors.white70,
           )),
         ),
-        home: ScreenHome(),
+        home: const ScreenHome(),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/Models/TaskProvider.dart';
+import 'package:todo/Provider/TaskProvider.dart';
 
 class TasksListview extends StatelessWidget {
   const TasksListview({super.key});
@@ -17,7 +17,7 @@ class TasksListview extends StatelessWidget {
                 value: taskClass.tasks[index].isChecked,
                 onChanged: (value) {
                   Provider.of<TaskProvider>(context, listen: false)
-                      .checkChange(index, value);
+                      .checkChange(taskClass.tasks[index], value);
                 },
               ),
               title: Text(
@@ -28,12 +28,12 @@ class TasksListview extends StatelessWidget {
                         : TextDecoration.none,
                     fontSize: 20,
                     // fontFamily: "Angeline",
-                    color: Color.fromARGB(179, 0, 0, 0)),
+                    color: const Color.fromARGB(179, 0, 0, 0)),
               ),
               trailing: IconButton(
                 onPressed: () {
                   Provider.of<TaskProvider>(context, listen: false)
-                      .remove(index);
+                      .remove(taskClass.tasks[index]);
                 },
                 icon: const Icon(
                   Icons.delete_outline,

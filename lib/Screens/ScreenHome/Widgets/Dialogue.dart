@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/Models/TaskModel.dart';
-import 'package:todo/Models/TaskProvider.dart';
+import 'package:todo/Database/DatabaseModel/TaskModel.dart';
+import 'package:todo/Provider/TaskProvider.dart';
 
 class CustomDialogue extends StatelessWidget {
   CustomDialogue({super.key, required this.ctx});
@@ -48,7 +48,6 @@ class CustomDialogue extends StatelessWidget {
                 } else {
                   Provider.of<TaskProvider>(context, listen: false)
                       .add(TaskModel(
-                    id: DateTime.now().millisecondsSinceEpoch.toString(),
                     task: taskController.text.trim(),
                   ));
                   Navigator.of(ctx).pop();

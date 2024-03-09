@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/Models/TaskProvider.dart';
+import 'package:todo/Provider/TaskProvider.dart';
 import 'package:todo/Screens/ScreenHome/Widgets/EmptyDialogue.dart';
 import 'package:todo/Screens/ScreenHome/Widgets/FAB.dart';
 import 'package:todo/Screens/ScreenHome/Widgets/TasksListview.dart';
@@ -10,6 +10,7 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<TaskProvider>(context, listen: false).getAllTasks();
     return Scaffold(
       appBar: AppBar(
         actions: const [
@@ -44,7 +45,7 @@ class ScreenHome extends StatelessWidget {
         ),
         child: Provider.of<TaskProvider>(context).tasks.isEmpty
             ? const EmptyDialogue()
-            : TasksListview(),
+            : const TasksListview(),
       ),
       floatingActionButton: const NewTaskFAB(),
     );
